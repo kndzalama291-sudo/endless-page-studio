@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Products, prices and checkout live in Shopify (Storefront API 2026-10 in `src/lib/shopify.ts`); never hardcode or mock products. Why: one source of truth the owner edits in Shopify admin.
+- Builder personalization travels as Shopify cart line attributes. Why: it shows on the Shopify order, so fulfilment needs no separate order table.
+- Site-wide knobs (brand name, chapters, shop flag, order-by dates, display currency rates, languages) live in `src/config/*`. Why: the owner edits one file per concern.
+- Each chapter page ends with `<ChapterPortal />`; chapter order comes from `CHAPTERS` and loops. Why: the site is designed as continuous paging.
+- Savings badges are computed from live prices via `bundleSaving`; never hardcode a saving. Why: only show savings where the maths is true.
