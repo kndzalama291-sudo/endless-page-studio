@@ -9,6 +9,20 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { useLocation } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner";
+import { useCartSync } from "@/hooks/useCartSync";
+import { Aurora } from "@/components/kp/Aurora";
+import { Snowfall } from "@/components/kp/Snowfall";
+import { SleighProgress } from "@/components/kp/SleighProgress";
+import { CursorSparkle } from "@/components/kp/CursorSparkle";
+import { KonamiSleigh } from "@/components/kp/KonamiSleigh";
+import { SiteHeader } from "@/components/kp/SiteHeader";
+import { SiteFooter } from "@/components/kp/SiteFooter";
+import { MobileBar } from "@/components/kp/MobileBar";
+import { CookieBanner } from "@/components/kp/CookieBanner";
+import { PineForest } from "@/components/kp/PineForest";
+import { BRAND_NAME, TAGLINE } from "@/config/brand";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -81,14 +95,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: `${BRAND_NAME} — ${TAGLINE}` },
+      { name: "description", content: "Personalized Santa videos, letters and keepsakes, delivered anywhere on Earth." },
+      { name: "theme-color", content: "#070B1F" },
+      { property: "og:title", content: `${BRAND_NAME} — ${TAGLINE}` },
+      { property: "og:description", content: "Personalized Santa videos, letters and keepsakes, delivered anywhere on Earth." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -96,6 +109,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -106,11 +125,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="grain">
         {children}
         <Scripts />
       </body>
@@ -120,11 +139,29 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  useCartSync();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-midnight">
+        Skip to content
+      </a>
+      <Aurora />
+      <Snowfall />
+      <SleighProgress />
+      <CursorSparkle />
+      <KonamiSleigh />
+      <SiteHeader />
+      {/* Required: nested routes render here. Keyed so every page turn animates in. */}
+      <main id="main" key={pathname} className="relative animate-page-in">
+        <Outlet />
+      </main>
+      <PineForest />
+      <SiteFooter />
+      <MobileBar />
+      <CookieBanner />
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }
