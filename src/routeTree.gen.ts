@@ -14,6 +14,7 @@ import { Route as BundlesRouteImport } from './routes/bundles'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ShopRouteImport } from './routes/shop'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const QuizRoute = QuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
   '/quiz': typeof QuizRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
   '/quiz': typeof QuizRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,14 @@ export interface FileRoutesById {
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
   '/quiz': typeof QuizRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bundles' | '/create' | '/faq' | '/quiz'
+  fullPaths: '/' | '/bundles' | '/create' | '/faq' | '/quiz' | '/shop'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bundles' | '/create' | '/faq' | '/quiz'
-  id: '__root__' | '/' | '/bundles' | '/create' | '/faq' | '/quiz'
+  to: '/' | '/bundles' | '/create' | '/faq' | '/quiz' | '/shop'
+  id: '__root__' | '/' | '/bundles' | '/create' | '/faq' | '/quiz' | '/shop'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +86,7 @@ export interface RootRouteChildren {
   CreateRoute: typeof CreateRoute
   FaqRoute: typeof FaqRoute
   QuizRoute: typeof QuizRoute
+  ShopRoute: typeof ShopRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreateRoute: CreateRoute,
   FaqRoute: FaqRoute,
   QuizRoute: QuizRoute,
+  ShopRoute: ShopRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
