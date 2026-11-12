@@ -21,5 +21,5 @@ export type ChapterPath = (typeof CHAPTERS)[number]["to"];
 
 export function nextChapter(current: string) {
   const i = CHAPTERS.findIndex((c) => c.to === current);
-  return CHAPTERS[(i + 1) % CHAPTERS.length];
+  return CHAPTERS[(i + 1) % CHAPTERS.length] ?? CHAPTERS[0];
 }

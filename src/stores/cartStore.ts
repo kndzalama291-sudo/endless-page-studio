@@ -93,7 +93,7 @@ export const useCartStore = create<CartStore>()(
               checkoutUrl: result.checkoutUrl,
               items: [
                 ...get().items,
-                ...fresh.map((i, idx) => ({ ...i, key: itemKey(i), lineId: result.lineIds[idx] })),
+                ...fresh.map((i, idx) => ({ ...i, key: itemKey(i), lineId: result.lineIds[idx] ?? null })),
               ],
             });
             return true;
@@ -102,7 +102,7 @@ export const useCartStore = create<CartStore>()(
           const result = await addLinesToShopifyCart(currentCartId, lines, existingIds);
           if (result.success) {
             set({
-              items: [...get().items, ...fresh.map((i, idx) => ({ ...i, key: itemKey(i), lineId: result.lineIds[idx] }))],
+              items: [...get().items, ...fresh.map((i, idx) => ({ ...i, key: itemKey(i), lineId: result.lineIds[idx] ?? null }))],
             });
             return true;
           }

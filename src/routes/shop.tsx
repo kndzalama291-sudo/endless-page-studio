@@ -73,7 +73,7 @@ function ShopPage() {
                 <span className="text-snow/70">Budget</span>
                 <span className="font-semibold text-gold">Up to {money(budget, code)}</span>
               </div>
-              <Slider className="mt-4" min={0} max={maxPrice} step={1} value={[budget]} onValueChange={(v) => setBudget(v[0])} aria-label="Budget" />
+              <Slider className="mt-4" min={0} max={maxPrice} step={1} value={[budget]} onValueChange={(v) => setBudget(v[0] ?? maxPrice)} aria-label="Budget" />
             </div>
           )}
         </div>

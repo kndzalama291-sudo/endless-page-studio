@@ -87,7 +87,10 @@ export function SantaBuilder() {
       }
     }
     const main = byHandle.get(HANDLES[pkg]);
-    if (!main) return toast.error("Couldn't reach the North Pole. Try again in a moment.");
+    if (!main) {
+      toast.error("Couldn't reach the North Pole. Try again in a moment.");
+      return;
+    }
     const loves = [...s.loves, ...(s.lovesOther.trim() ? [s.lovesOther.trim()] : [])].join(", ");
     const attrs: CartAttribute[] = [
       { key: "Child's name", value: s.name.trim() },
@@ -96,8 +99,8 @@ export function SantaBuilder() {
       { key: "Loves", value: loves },
       { key: "Proud moment", value: s.proud.trim() || "—" },
       { key: "Wish", value: s.wish.trim() || "—" },
-      { key: "Tone", value: TONES.find((t) => t.key === s.tone)!.label },
-      { key: "Language", value: LANGUAGES.find((l) => l.code === s.language)!.label },
+      { key: "Tone", value: TONES.find((t) => t.key === s.tone)?.label ?? s.tone },
+      { key: "Language", value: LANGUAGES.find((l) => l.code === s.language)?.label ?? s.language },
       { key: "Deliver", value: deliveryLabel(s) },
       { key: "Buyer email", value: s.buyerEmail.trim() },
       { key: "Recipient email", value: s.recipientEmail.trim() || "Same as buyer" },
@@ -105,7 +108,7 @@ export function SantaBuilder() {
     if (pkgDef.children > 1) attrs.push({ key: "Other children", value: s.extraNames.map((n) => n.trim()).join(", ") });
 
     const toItem = (p: ShopifyProduct, qty: number, attributes: CartAttribute[]): NewCartItem => {
-      const v = p.node.variants.edges[0].node;
+      const v = p.node.variants.edges[0]!.node;
       return { product: p, variantId: v.id, variantTitle: v.title, price: v.price, quantity: qty, selectedOptions: v.selectedOptions, attributes };
     };
     const items: NewCartItem[] = [toItem(main, 1, attrs)];

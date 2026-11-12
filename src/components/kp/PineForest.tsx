@@ -31,7 +31,7 @@ export function PineForest() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const fromBottom = Math.max(0, max - window.scrollY);
         refs.current.forEach((el, i) => {
-          if (el) el.style.transform = `translateY(${fromBottom * ROWS[i].speed * 0.3}px)`;
+          if (el) el.style.transform = `translateY(${fromBottom * (ROWS[i]?.speed ?? 0) * 0.3}px)`;
         });
       });
     };

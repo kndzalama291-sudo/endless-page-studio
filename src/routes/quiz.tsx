@@ -28,6 +28,7 @@ function QuizPage() {
   const [name, setName] = useState("");
   const done = answers.length === QUIZ.length;
   const step = answers.length;
+  const current = QUIZ[Math.min(step, QUIZ.length - 1)]!;
 
   const pick = (p: number, e: React.MouseEvent) => {
     const next = [...answers, p];
@@ -48,9 +49,9 @@ function QuizPage() {
           {!done ? (
             <motion.div key={step} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.35 }}>
               <p className="text-center text-sm font-semibold uppercase tracking-[0.3em] text-mint">Question {step + 1} of {QUIZ.length}</p>
-              <h2 className="mt-4 text-center font-display text-3xl font-semibold text-snow sm:text-5xl">{QUIZ[step].q}</h2>
+              <h2 className="mt-4 text-center font-display text-3xl font-semibold text-snow sm:text-5xl">{current.q}</h2>
               <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                {QUIZ[step].a.map((a, i) => (
+                {current.a.map((a, i) => (
                   <motion.button
                     key={a.t}
                     type="button"

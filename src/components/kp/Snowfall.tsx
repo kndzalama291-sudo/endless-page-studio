@@ -36,8 +36,8 @@ export function Snowfall() {
       return {
         x: Math.random() * w,
         y: y ?? Math.random() * h,
-        r: [0.8, 1.6, 2.8][layer] + Math.random() * 0.8,
-        vy: [0.35, 0.7, 1.2][layer] + Math.random() * 0.3,
+        r: (layer === 0 ? 0.8 : layer === 1 ? 1.6 : 2.8) + Math.random() * 0.8,
+        vy: (layer === 0 ? 0.35 : layer === 1 ? 0.7 : 1.2) + Math.random() * 0.3,
         vx: 0,
         layer,
         phase: Math.random() * Math.PI * 2,

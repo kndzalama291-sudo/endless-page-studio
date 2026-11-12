@@ -20,8 +20,13 @@ export const AMBER_WINDOW_DAYS = 7;
 export type ArrivalStatus = "green" | "amber" | "red";
 
 /** green = comfortably in time, amber = within AMBER_WINDOW_DAYS of cutoff, red = cutoff passed. */
+function parseISODate(iso: string) {
+  const [y = 1970, m = 1, d = 1] = iso.split("-").map(Number);
+  return { y, m, d };
+}
+
 export function arrivalStatus(cutoffISO: string, now: Date = new Date()): ArrivalStatus {
-  const [y, m, d] = cutoffISO.split("-").map(Number);
+  const { y, m, d } = parseISODate(cutoffISO);
   const endOfCutoff = new Date(y, m - 1, d, 23, 59, 59, 999);
   const msLeft = endOfCutoff.getTime() - now.getTime();
   if (msLeft < 0) return "red";
@@ -30,6 +35,6 @@ export function arrivalStatus(cutoffISO: string, now: Date = new Date()): Arriva
 }
 
 export function formatCutoff(cutoffISO: string) {
-  const [y, m, d] = cutoffISO.split("-").map(Number);
+  const { y, m, d } = parseISODate(cutoffISO);
   return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
 }
