@@ -21,7 +21,7 @@ export function SleighProgress() {
     <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-1">
       <div className="h-[2px] bg-aurora-gradient shadow-mint" style={{ width: `${p * 100}%` }} />
       <div className="absolute -top-0.5 text-gold transition-[left] duration-150" style={{ left: `calc(${p * 100}% - 44px)` }}>
-        <SleighIcon className="h-4 w-11 -scale-x-100" />
+        <SleighIcon className="h-4 w-11" />
       </div>
     </div>
   );

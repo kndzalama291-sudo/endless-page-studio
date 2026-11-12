@@ -23,7 +23,7 @@ export function KonamiSleigh() {
   return (
     <div key={flying} aria-hidden className="pointer-events-none fixed inset-0 z-[85] overflow-hidden">
       <div className="absolute top-1/2 text-gold drop-shadow-[0_0_20px_var(--gold)]" style={{ animation: "sleigh-cross 3.5s ease-in-out forwards" }}>
-        <SleighIcon className="h-24 w-80 -scale-x-100" />
+        <SleighIcon className="h-24 w-80" />
       </div>
     </div>
   );
