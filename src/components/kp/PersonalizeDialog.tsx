@@ -70,8 +70,8 @@ export function PersonalizeDialog({ product, onClose }: { product: ShopifyProduc
             <p className="text-sm text-snow/65">{n.description}</p>
             {tooLate && region && (
               <p className="rounded-2xl bg-candy/15 p-4 text-sm">
-                The last order date for {region.label} has passed, so this won't arrive by Christmas.{" "}
-                <Link to="/create" className="font-semibold text-mint underline" onClick={onClose}>Send an instant Santa message instead →</Link>
+                The last order date for {region.label} has passed for physical delivery.{" "}
+                <Link to="/quiz" className="font-semibold text-mint underline" onClick={onClose}>Take the Nice List Quiz instead →</Link>
               </p>
             )}
             <Button variant="candy" size="xl" className="mt-auto" onClick={add} disabled={!text.trim() || isLoading || tooLate}>

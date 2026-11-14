@@ -12,8 +12,8 @@ export function MobileBar() {
             <MiniCountdown />
           </div>
         </div>
-        <Link to="/create" className="rounded-full bg-candy-gradient px-5 py-3 text-sm font-semibold text-snow shadow-candy">
-          Create their message
+        <Link to="/shop" className="rounded-full bg-candy-gradient px-5 py-3 text-sm font-semibold text-snow shadow-candy">
+          Explore the shop
         </Link>
       </div>
     </div>

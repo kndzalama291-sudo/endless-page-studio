@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as BundlesRouteImport } from './routes/bundles'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -18,11 +19,17 @@ import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as RefundsRouteImport } from './routes/refunds'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as WishWingsRouteImport } from './routes/wish-wings'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BundlesRoute = BundlesRouteImport.update({
@@ -65,6 +72,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WishWingsRoute = WishWingsRouteImport.update({
+  id: '/wish-wings',
+  path: '/wish-wings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductHandleRoute = ProductHandleRouteImport.update({
   id: '/product/$handle',
   path: '/product/$handle',
@@ -73,6 +85,7 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bundles': typeof BundlesRoute
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
@@ -81,10 +94,12 @@ export interface FileRoutesByFullPath {
   '/refunds': typeof RefundsRoute
   '/shop': typeof ShopRoute
   '/terms': typeof TermsRoute
+  '/wish-wings': typeof WishWingsRoute
   '/product/$handle': typeof ProductHandleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bundles': typeof BundlesRoute
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
@@ -93,11 +108,13 @@ export interface FileRoutesByTo {
   '/refunds': typeof RefundsRoute
   '/shop': typeof ShopRoute
   '/terms': typeof TermsRoute
+  '/wish-wings': typeof WishWingsRoute
   '/product/$handle': typeof ProductHandleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/bundles': typeof BundlesRoute
   '/create': typeof CreateRoute
   '/faq': typeof FaqRoute
@@ -106,12 +123,14 @@ export interface FileRoutesById {
   '/refunds': typeof RefundsRoute
   '/shop': typeof ShopRoute
   '/terms': typeof TermsRoute
+  '/wish-wings': typeof WishWingsRoute
   '/product/$handle': typeof ProductHandleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/bundles'
     | '/create'
     | '/faq'
@@ -120,10 +139,12 @@ export interface FileRouteTypes {
     | '/refunds'
     | '/shop'
     | '/terms'
+    | '/wish-wings'
     | '/product/$handle'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/bundles'
     | '/create'
     | '/faq'
@@ -132,10 +153,12 @@ export interface FileRouteTypes {
     | '/refunds'
     | '/shop'
     | '/terms'
+    | '/wish-wings'
     | '/product/$handle'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/bundles'
     | '/create'
     | '/faq'
@@ -144,11 +167,13 @@ export interface FileRouteTypes {
     | '/refunds'
     | '/shop'
     | '/terms'
+    | '/wish-wings'
     | '/product/$handle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BundlesRoute: typeof BundlesRoute
   CreateRoute: typeof CreateRoute
   FaqRoute: typeof FaqRoute
@@ -157,6 +182,7 @@ export interface RootRouteChildren {
   RefundsRoute: typeof RefundsRoute
   ShopRoute: typeof ShopRoute
   TermsRoute: typeof TermsRoute
+  WishWingsRoute: typeof WishWingsRoute
   ProductHandleRoute: typeof ProductHandleRoute
 }
 
@@ -167,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bundles': {
@@ -225,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wish-wings': {
+      id: '/wish-wings'
+      path: '/wish-wings'
+      fullPath: '/wish-wings'
+      preLoaderRoute: typeof WishWingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$handle': {
       id: '/product/$handle'
       path: '/product/$handle'
@@ -237,6 +277,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BundlesRoute: BundlesRoute,
   CreateRoute: CreateRoute,
   FaqRoute: FaqRoute,
@@ -245,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   RefundsRoute: RefundsRoute,
   ShopRoute: ShopRoute,
   TermsRoute: TermsRoute,
+  WishWingsRoute: WishWingsRoute,
   ProductHandleRoute: ProductHandleRoute,
 }
 export const routeTree = rootRouteImport

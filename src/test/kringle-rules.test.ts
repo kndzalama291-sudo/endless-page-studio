@@ -42,8 +42,8 @@ describe("continuous paging", () => {
   it("the last chapter loops back to the front page", () => {
     expect(nextChapter("/faq")?.to).toBe("/");
   });
-  it("the front page leads to the Santa message workshop", () => {
-    expect(nextChapter("/")?.to).toBe("/create");
+  it("the front page leads to the holiday shop", () => {
+    expect(nextChapter("/")?.to).toBe("/shop");
   });
 });
 

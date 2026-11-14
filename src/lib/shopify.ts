@@ -1,10 +1,15 @@
 import { toast } from "sonner";
 
-export const SHOPIFY_API_VERSION = "2026-10";
-export const SHOPIFY_STORE_PERMANENT_DOMAIN = "endless-page-studio-0zt20-wcgxbv0x.myshopify.com";
+export const SHOPIFY_API_VERSION =
+  (import.meta.env.VITE_SHOPIFY_API_VERSION as string) || "2026-10";
+export const SHOPIFY_STORE_PERMANENT_DOMAIN =
+  (import.meta.env.VITE_SHOPIFY_STORE_DOMAIN as string) ||
+  "endless-page-studio-0zt20-wcgxbv0x.myshopify.com";
 export const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 // Storefront tokens are public by design (read-only storefront access).
-export const SHOPIFY_STOREFRONT_TOKEN = "3c5d16a55e27b6d26dbe421f5d5a6b4e";
+export const SHOPIFY_STOREFRONT_TOKEN =
+  (import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN as string) ||
+  "3c5d16a55e27b6d26dbe421f5d5a6b4e";
 
 export interface Money {
   amount: string;

@@ -1,6 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, PenLine, Wand2, Send, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Gift,
+  Heart,
+  Sparkles,
+  Mail,
+  Star,
+  CheckCircle2,
+  Smile,
+  Zap,
+} from "lucide-react";
 import heroImg from "@/assets/hero-north-pole.jpg";
 import { Button } from "@/components/ui/button";
 import { Countdown } from "@/components/kp/Countdown";
@@ -9,19 +18,25 @@ import { TrustRow } from "@/components/kp/TrustRow";
 import { GiftBox } from "@/components/kp/GiftBox";
 import { SleighIcon } from "@/components/kp/SleighIcon";
 import { SectionHeading } from "@/components/kp/SectionHeading";
-import { ProductCard } from "@/components/kp/ProductCard";
 import { MagicPromise } from "@/components/kp/MagicPromise";
-import { ChapterPortal } from "@/components/kp/ChapterPortal";
-import { BRAND_NAME, TAGLINE } from "@/config/brand";
-import { productsQueryOptions } from "@/lib/shopify";
+import { KidsFunZone } from "@/components/kp/KidsFunZone";
+import { BRAND_NAME, TAGLINE, MASCOTS, GLOBAL_GREETINGS } from "@/config/brand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: `${BRAND_NAME} — Personalized Santa videos & letters` },
-      { name: "description", content: "Personalized Santa videos, letters and keepsakes, made just for them and delivered anywhere on Earth, even on Christmas Eve." },
+      { title: `${BRAND_NAME} — Delivering Pure Childhood Holiday Wonder Worldwide` },
+      {
+        name: "description",
+        content:
+          "Personalized holiday letters, certified certificates, and magical moments crafted especially for kids. 100% digital, instant worldwide delivery.",
+      },
       { property: "og:title", content: `${BRAND_NAME} — ${TAGLINE}` },
-      { property: "og:description", content: "Personalized Santa videos, letters and keepsakes, delivered anywhere on Earth." },
+      {
+        property: "og:description",
+        content:
+          "Instant digital holiday magic delivered to families in all countries and currencies.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,63 +46,123 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <>
+    <div className="relative">
+      <GlobalGreetingsRibbon />
       <Hero />
-      <HowItWorks />
-      <FeaturedMagic />
-      <LastMinute />
+      <KidsFunZone />
+      <DestinationPortals />
+      <DigitalMagicHighlight />
       <MagicPromise />
-      <ChapterPortal />
-    </>
+    </div>
+  );
+}
+
+function GlobalGreetingsRibbon() {
+  return (
+    <div className="bg-gradient-to-r from-gold/20 via-mint/20 to-candy/20 border-b border-gold/25 py-2 px-4 text-center text-xs font-semibold text-snow/90 backdrop-blur-md">
+      <div className="mx-auto flex flex-wrap items-center justify-center gap-3">
+        <span className="flex items-center gap-1.5 text-gold font-bold">
+          🌍 Global Family Magic:
+        </span>
+        <span>{GLOBAL_GREETINGS.join(" · ")}</span>
+        <span className="hidden sm:inline text-mint font-bold">
+          · ⚡ 100% Digital Delivery in Minutes Worldwide
+        </span>
+      </div>
+    </div>
   );
 }
 
 function Hero() {
   return (
-    <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden pb-16 pt-32 sm:items-center sm:pb-0">
-      <img src={heroImg} alt="" width={1920} height={1088} className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center] opacity-70" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-midnight/40 via-midnight/30 to-midnight" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-midnight/90 via-midnight/40 to-transparent" />
+    <section className="relative isolate flex min-h-[90svh] items-center overflow-hidden pb-20 pt-28 sm:pt-36">
+      <img
+        src={heroImg}
+        alt="Enchanted winter holiday landscape"
+        width={1920}
+        height={1088}
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_center] opacity-65"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-midnight/50 via-midnight/35 to-midnight" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-midnight/95 via-midnight/60 to-transparent" />
 
-      {/* sleigh crossing the moon */}
-      <div aria-hidden className="pointer-events-none absolute right-[8%] top-[14%] hidden h-40 w-[34rem] overflow-hidden md:block">
-        <div className="absolute top-1/2 text-midnight" style={{ animation: "moon-sleigh 14s linear infinite" }}>
-          <SleighIcon className="h-10 w-36" />
+      {/* Sleigh crossing the moon animation */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[8%] top-[12%] hidden h-44 w-[36rem] overflow-hidden md:block"
+      >
+        <div
+          className="absolute top-1/2 text-midnight"
+          style={{ animation: "moon-sleigh 14s linear infinite" }}
+        >
+          <SleighIcon className="h-12 w-44" />
         </div>
       </div>
 
-      <NorthStar className="left-[12%] top-28 sm:left-[46%] sm:top-32" />
+      <NorthStar className="left-[10%] top-28 sm:left-[45%] sm:top-36" />
 
-      {/* floating gifts */}
-      <GiftBox color="candy" className="absolute bottom-[18%] right-[8%] hidden h-20 w-20 animate-float drop-shadow-[0_10px_30px_var(--candy)] md:block" />
-      <GiftBox color="mint" className="absolute bottom-[34%] right-[22%] hidden h-14 w-14 animate-float md:block" style={{ animationDelay: "-2s" }} />
-      <GiftBox color="violet" className="absolute right-[4%] top-[48%] hidden h-12 w-12 animate-float lg:block" style={{ animationDelay: "-4s" }} />
+      {/* Floating decorative gifts */}
+      <GiftBox
+        color="candy"
+        className="absolute bottom-[16%] right-[8%] hidden h-24 w-24 animate-float drop-shadow-[0_15px_35px_var(--candy)] md:block"
+      />
+      <GiftBox
+        color="mint"
+        className="absolute bottom-[36%] right-[24%] hidden h-16 w-16 animate-float md:block"
+        style={{ animationDelay: "-2s" }}
+      />
+      <GiftBox
+        color="violet"
+        className="absolute right-[4%] top-[45%] hidden h-14 w-14 animate-float lg:block"
+        style={{ animationDelay: "-4s" }}
+      />
 
+      {/* Enlarged Center Stack */}
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <div className="max-w-3xl">
-          <p className="mb-5 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-mint">
-            <span className="h-1.5 w-1.5 rounded-full bg-mint animate-twinkle" /> Live from the North Pole
-          </p>
-          <h1 className="font-display text-[3.4rem] font-semibold leading-[0.88] tracking-[-0.045em] text-snow sm:text-8xl lg:text-[8.5rem]">
-            Santa knows <em className="text-gold-foil not-italic">their name.</em>
+        <div className="max-w-4xl">
+          <div className="mb-6 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs font-bold uppercase tracking-[0.3em] text-mint border border-mint/30 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-mint animate-twinkle" />
+              Welcome to {BRAND_NAME}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/15 px-3 py-1.5 text-xs font-bold text-gold border border-gold/30">
+              <Sparkles className="h-3.5 w-3.5" /> 100% Kid-Approved Wonder
+            </span>
+          </div>
+
+          <h1 className="font-display text-[3.6rem] font-bold leading-[0.92] tracking-[-0.04em] text-snow sm:text-7xl lg:text-[7.8rem]">
+            Where holiday wonder <em className="text-gold-foil not-italic">lights up their eyes.</em>
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-snow/80 sm:text-xl">
-            Personalized Santa videos, letters and keepsakes, made just for them and delivered anywhere on Earth, even on Christmas Eve.
+
+          <p className="mt-8 max-w-2xl text-xl text-snow/90 sm:text-2xl font-normal leading-relaxed">
+            Personalized holiday letters, certified certificates, and magical moments
+            delivered instantly to your screen and inbox anywhere on Earth — even on Christmas Eve.
           </p>
+
           <div className="mt-8">
             <Countdown />
           </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild variant="candy" size="xl">
-              <Link to="/create">
-                Create their Santa message <ArrowRight className="h-4 w-4" />
+
+          {/* Clean Action Buttons */}
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Button asChild variant="candy" size="xl" className="h-16 px-8 text-lg rounded-full shadow-candy hover:scale-105 transition font-black">
+              <Link to="/shop">
+                Explore the Digital Shop <ArrowRight className="h-5 w-5 ml-1" />
               </Link>
             </Button>
-            <Button asChild variant="glass" size="xl">
-              <Link to="/quiz">Take the Nice List quiz</Link>
+            <Button asChild variant="gold" size="xl" className="h-16 px-8 text-lg rounded-full shadow-gold hover:scale-105 transition text-midnight font-black">
+              <a href="#kids-playland">
+                🎪 Kids Magic Playland & Toys 🎈
+              </a>
+            </Button>
+            <Button asChild variant="glass" size="xl" className="h-16 px-8 text-lg rounded-full hover:scale-105 transition font-bold">
+              <Link to="/quiz">
+                Play the Joyful Quiz ⭐
+              </Link>
             </Button>
           </div>
-          <div className="mt-8">
+
+          <div className="mt-10">
             <TrustRow />
           </div>
         </div>
@@ -96,74 +171,167 @@ function Hero() {
   );
 }
 
-const STEPS = [
-  { icon: PenLine, title: "Tell us about them", body: "Their name (and how to say it), what they love, the proud thing they did this year, and their big wish." },
-  { icon: Wand2, title: "We craft the magic", body: "Santa and the elves weave every detail into a message that feels impossibly, wonderfully real." },
-  { icon: Send, title: "Delivered when you choose", body: "Instantly, on Christmas Eve evening, or Christmas morning — in their timezone, not yours." },
-];
-
-function HowItWorks() {
+function MeetTheMascots() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6">
-      <SectionHeading eyebrow="How it works" title={<>Three steps to <span className="text-aurora">gasps</span>.</>} />
-      <ol className="mt-16 grid gap-6 md:grid-cols-3">
-        {STEPS.map(({ icon: Icon, title, body }, i) => (
-          <li key={title} className="group relative overflow-hidden rounded-3xl glass p-8 transition duration-500 hover:-translate-y-2 hover:border-mint/40" style={{ animation: `page-in .8s ${i * 0.15}s both` }}>
-            <span className="absolute -right-4 -top-8 font-display text-[9rem] font-bold leading-none text-snow/5 transition group-hover:text-mint/10">{i + 1}</span>
-            <div className="grid h-14 w-14 place-items-center rounded-2xl bg-aurora-gradient text-midnight shadow-mint">
-              <Icon className="h-6 w-6" />
+    <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <div className="rounded-[3rem] glass-gold p-8 sm:p-14 border border-gold/30 shadow-2xl">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-bold uppercase tracking-[0.35em] text-mint">
+            Meet Your Wonderpost Guides
+          </span>
+          <h2 className="mt-2 font-display text-4xl sm:text-5xl font-bold text-snow">
+            Barnaby & Pippin
+          </h2>
+          <p className="mt-3 text-snow/75 text-base sm:text-lg">
+            Our beloved holiday companions who hand-stamp every wax seal and cheer with every quiz answer!
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {/* Barnaby */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 rounded-3xl bg-midnight/50 p-6 sm:p-8 border border-gold/20">
+            <div className="text-7xl sm:text-8xl p-4 rounded-3xl bg-gold/15 border border-gold/30 shrink-0">
+              {MASCOTS.primary.avatar}
             </div>
-            <h3 className="mt-6 font-display text-2xl font-semibold text-snow">{title}</h3>
-            <p className="mt-3 text-snow/70">{body}</p>
-          </li>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-gold">
+                {MASCOTS.primary.title}
+              </span>
+              <h3 className="font-display text-3xl font-bold text-snow mt-1">
+                {MASCOTS.primary.name} the {MASCOTS.primary.species}
+              </h3>
+              <p className="mt-3 text-snow/80 text-sm sm:text-base leading-relaxed">
+                Equipped with tiny brass spectacles, Barnaby inspects every child's letter to ensure names and milestones are 100% perfect.
+              </p>
+              <p className="mt-3 text-gold italic font-medium text-sm">
+                "{MASCOTS.primary.catchphrase}"
+              </p>
+            </div>
+          </div>
+
+          {/* Pippin */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 rounded-3xl bg-midnight/50 p-6 sm:p-8 border border-candy/20">
+            <div className="text-7xl sm:text-8xl p-4 rounded-3xl bg-candy/15 border border-candy/30 shrink-0">
+              {MASCOTS.secondary.avatar}
+            </div>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-candy">
+                {MASCOTS.secondary.title}
+              </span>
+              <h3 className="font-display text-3xl font-bold text-snow mt-1">
+                {MASCOTS.secondary.name} the {MASCOTS.secondary.species}
+              </h3>
+              <p className="mt-3 text-snow/80 text-sm sm:text-base leading-relaxed">
+                Bouncy, cheerful, and loves sneaking holiday cookies. Pippin showers kids with festive confetti and bonus Wonder Points during quizzes!
+              </p>
+              <p className="mt-3 text-candy italic font-medium text-sm">
+                "{MASCOTS.secondary.catchphrase}"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DestinationPortals() {
+  const destinations = [
+    {
+      to: "/shop",
+      title: "The Digital Shop",
+      badge: "🎁 Keepsakes & Letters",
+      desc: "Personalized cinematic videos from Santa, wax-sealed printable letters, and official Nice List certificates delivered in minutes.",
+      cta: "Explore Shop",
+      color: "border-gold/30 hover:border-gold",
+      btnVariant: "candy" as const,
+    },
+    {
+      to: "/quiz",
+      title: "The Joyful Quiz",
+      badge: "⭐ Points & Gamification",
+      desc: "Answer festive questions, earn Wonder Points with every click, level up your rank, and download a custom Nice List certificate.",
+      cta: "Play the Quiz",
+      color: "border-mint/30 hover:border-mint",
+      btnVariant: "gold" as const,
+    },
+    {
+      to: "/wish-wings",
+      title: "Wish Wings",
+      badge: "🪽 A Wish Card, Not a Cart",
+      desc: "Kids pick a card design, write why they wish for an item, and send it to parents on WhatsApp. Parents reply with 1 tap!",
+      cta: "Build a Wish Wing",
+      color: "border-candy/30 hover:border-candy",
+      btnVariant: "candy" as const,
+    },
+    {
+      to: "/about",
+      title: "Why For Kids",
+      badge: "❤️ Our Story & Gallery",
+      desc: "Discover why childhood wonder is sacred, see real photos of smiling kids, and learn why our workshop loves every single thing we do.",
+      cta: "Read Our Story",
+      color: "border-blue-400/30 hover:border-blue-400",
+      btnVariant: "glass" as const,
+    },
+  ];
+
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <SectionHeading
+        eyebrow="Explore Wonderpost"
+        title="Everything Created with Pure Heart."
+        sub="Each part of our holiday world has its own dedicated place. Choose where you would like to explore:"
+      />
+
+      <div className="mt-14 grid gap-8 sm:grid-cols-2">
+        {destinations.map((d) => (
+          <div
+            key={d.title}
+            className={`group rounded-[2.5rem] glass p-8 sm:p-10 border ${d.color} transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col justify-between`}
+          >
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-mint">
+                {d.badge}
+              </span>
+              <h3 className="font-display text-3xl font-bold text-snow mt-2">
+                {d.title}
+              </h3>
+              <p className="mt-4 text-snow/75 text-base sm:text-lg leading-relaxed">
+                {d.desc}
+              </p>
+            </div>
+            <div className="mt-8 pt-6 border-t border-snow/10">
+              <Button asChild variant={d.btnVariant} size="lg" className="rounded-full w-full sm:w-auto px-6">
+                <Link to={d.to}>
+                  {d.cta} <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
         ))}
-      </ol>
-    </section>
-  );
-}
-
-function FeaturedMagic() {
-  const { data, isLoading } = useQuery(productsQueryOptions("tag:core"));
-  return (
-    <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
-      <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-        <SectionHeading center={false} eyebrow="The magic menu" title="Pick their kind of wonder." />
-        <Button asChild variant="glass" size="lg" className="rounded-full">
-          <Link to="/bundles">See every bundle <ArrowRight className="h-4 w-4" /></Link>
-        </Button>
-      </div>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {isLoading && Array.from({ length: 4 }).map((_, i) => <div key={i} className="aspect-[3/4] animate-pulse rounded-3xl glass" />)}
-        {data?.map((p) => <ProductCard key={p.node.id} product={p} />)}
-        {!isLoading && data?.length === 0 && <p className="text-snow/60">No products found.</p>}
       </div>
     </section>
   );
 }
 
-function LastMinute() {
+function DigitalMagicHighlight() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6">
-      <div className="relative overflow-hidden rounded-[2.5rem] glass-gold p-8 sm:p-14">
-        <div aria-hidden className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-candy/30 blur-[100px]" />
-        <div className="relative grid gap-8 md:grid-cols-[1.4fr_1fr] md:items-center">
-          <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.35em] text-candy">
-              <Zap className="h-4 w-4" /> Last-minute saviour
-            </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-snow sm:text-6xl">Forgot someone? Magic arrives in minutes.</h2>
-            <p className="mt-4 max-w-lg text-snow/75">
-              Digital gifts skip the post entirely. Choose instant delivery, or schedule it for the exact moment they'll open it.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <Button asChild variant="candy" size="xl">
-              <Link to="/create">Send instant magic</Link>
-            </Button>
-            <Button asChild variant="glass" size="xl">
-              <Link to="/shop" hash="arrival">Check physical gift cutoffs</Link>
-            </Button>
-          </div>
+      <div className="rounded-[3rem] glass p-8 sm:p-14 border border-snow/15 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-mint/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-mint border border-mint/30 mb-4">
+          <Zap className="h-4 w-4" /> The 100% Digital Advantage
+        </div>
+        <h2 className="font-display text-4xl sm:text-5xl font-bold text-snow">
+          No Shipping Delays. No Lost Mail.
+        </h2>
+        <p className="mt-4 text-lg text-snow/80 max-w-2xl mx-auto leading-relaxed">
+          Because Wonderpost is 100% digital, your child's personalized letter, certificate, or video
+          arrives directly in your hands within minutes, anywhere in the world — even at 11:59 PM on Christmas Eve.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm font-semibold text-gold">
+          <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-mint" /> High-Resolution Print Ready</span>
+          <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-mint" /> 24-Hour Free Typo Guarantee</span>
+          <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-mint" /> All Currencies & Countries Supported</span>
         </div>
       </div>
     </section>

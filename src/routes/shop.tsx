@@ -46,7 +46,7 @@ function ShopPage() {
     return (
       <>
         <PageHero eyebrow="Chapter 05 · The Gift Shop" title="The workshop is resting." sub="Physical keepsakes are paused for now. Digital magic never sleeps." />
-        <div className="flex justify-center"><Button asChild variant="candy" size="xl"><Link to="/create">Create a Santa message</Link></Button></div>
+        <div className="flex justify-center"><Button asChild variant="candy" size="xl"><Link to="/quiz">Take the Nice List Quiz</Link></Button></div>
         <ChapterPortal />
       </>
     );
@@ -97,7 +97,7 @@ function ShopPage() {
         <div className="flex flex-col items-center gap-6 rounded-[2rem] glass p-8 text-center sm:p-12">
           <Zap className="h-10 w-10 text-candy" />
           <SectionHeading title="Forgot someone? Magic arrives in minutes." sub="Digital Santa messages skip the post entirely. Schedule them for the perfect moment." />
-          <Button asChild variant="candy" size="xl"><Link to="/create">Send instant magic</Link></Button>
+          <Button asChild variant="candy" size="xl"><Link to="/quiz">Take the Nice List Quiz</Link></Button>
         </div>
       </section>
 

@@ -56,8 +56,8 @@ export function ArrivalChecker() {
               </p>
               {status === "red" && (
                 <p className="mt-4 text-snow/80">
-                  Physical gifts can't make it now, but a personalized Santa message lands in minutes.{" "}
-                  <Link to="/create" className="font-semibold text-mint underline">Send instant magic →</Link>
+                  Physical shipping cutoffs have passed for this region, but digital keepsakes are available anytime.{" "}
+                  <Link to="/shop" className="font-semibold text-mint underline">Explore holiday gifts →</Link>
                 </p>
               )}
             </div>

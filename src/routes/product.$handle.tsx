@@ -94,8 +94,8 @@ function ProductPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-20 pt-32 sm:px-6 sm:pt-40">
-      <Link to={physical ? "/shop" : "/bundles"} className="inline-flex items-center gap-2 text-sm text-snow/60 hover:text-gold">
-        <ArrowLeft className="h-4 w-4" /> Back
+      <Link to="/shop" className="inline-flex items-center gap-2 text-sm text-snow/60 hover:text-gold">
+        <ArrowLeft className="h-4 w-4" /> Back to Shop
       </Link>
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
         <div>
@@ -132,16 +132,12 @@ function ProductPage() {
           )}
           {tooLate && region && (
             <p className="rounded-2xl bg-candy/15 p-4 text-sm">
-              Too late for {region.label} delivery by Christmas. <Link to="/create" className="font-semibold text-mint underline">Send an instant Santa message instead →</Link>
+              Too late for {region.label} delivery by Christmas. <Link to="/quiz" className="font-semibold text-mint underline">Take the Nice List Quiz instead →</Link>
             </p>
           )}
-          {!physical && n.tags.includes("core") ? (
-            <Button asChild variant="candy" size="xl"><Link to="/create">Personalize in the workshop</Link></Button>
-          ) : (
-            <Button variant="candy" size="xl" onClick={add} disabled={isLoading || !v?.availableForSale || tooLate || (physical && !text.trim())}>
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Plus className="h-4 w-4" /> Add to sack</>}
-            </Button>
-          )}
+          <Button variant="candy" size="xl" onClick={add} disabled={isLoading || !v?.availableForSale || tooLate || (physical && !text.trim())}>
+            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Plus className="h-4 w-4" /> Add to sack</>}
+          </Button>
           {physical && (
             <Link to="/shop" hash="arrival" className="text-sm text-mint underline">Will it arrive by Christmas? Check your country</Link>
           )}

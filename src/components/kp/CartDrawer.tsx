@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2, Gift } from "lucide-react";
+import { ShoppingBag, Minus, Plus, Trash2, ExternalLink, Loader2, Gift, MessageCircle, Sparkles } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
@@ -14,6 +14,9 @@ export function CartDrawer() {
   const country = usePrefs((s) => s.country);
   const money = useMoney();
   const [mounted, setMounted] = useState(false);
+  const [childName, setChildName] = useState("");
+  const [childNote, setChildNote] = useState("I've been practicing so hard this week!");
+
   useEffect(() => setMounted(true), []);
   useEffect(() => {
     if (isOpen) syncCart();
@@ -34,6 +37,14 @@ export function CartDrawer() {
       window.open(url, "_blank");
       setOpen(false);
     }
+  };
+
+  const handleSendWhatsAppWish = () => {
+    const itemsText = list.map((item) => `• ${item.product.node.title} (${item.quantity}x)`).join("\n");
+    const message = `🪽 Holiday Wish Card from ${childName.trim() || "Your Child"}!\n\n"Mom / Dad, I added these holiday wishes to my Wonderpost sack:"\n${itemsText}\n\nNote from child: "${childNote}"\n\n👉 Click here to review and reply: ${typeof window !== "undefined" ? window.location.href : "https://wonderpost.com"}\n\nHow will you reply?\n1. Yes, approved! 🎉\n2. Saved for your birthday 🎂\n3. Let's swap for another surprise 🔄\n4. Let's talk together tonight 💬`;
+    
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/?text=${encoded}`, "_blank");
   };
 
   return (
@@ -65,7 +76,7 @@ export function CartDrawer() {
               <Gift className="h-14 w-14 text-gold/60" />
               <p className="text-snow/70">Nothing in the sack yet.</p>
               <Button asChild variant="candy" size="lg" onClick={() => setOpen(false)}>
-                <Link to="/create">Create a Santa message</Link>
+                <Link to="/shop">Explore the shop</Link>
               </Button>
             </div>
           ) : (
@@ -105,23 +116,43 @@ export function CartDrawer() {
                 </ul>
               </div>
               <div className="flex-shrink-0 space-y-3 border-t border-border pt-4">
-                {hasPhysical && !region && (
-                  <p className="rounded-xl bg-warn/10 p-3 text-xs text-warn">
-                    Check your country in the <Link to="/shop" hash="arrival" className="underline" onClick={() => setOpen(false)}>Christmas arrival checker</Link> before you check out.
-                  </p>
-                )}
-                {pastCutoff && region && (
-                  <p className="rounded-xl bg-candy/15 p-3 text-sm text-snow">
-                    Oh, snowballs. The last order date for {region.label} was {formatCutoff(region.date)}, so physical gifts won't make it by Christmas. Remove them and send an instant Santa message instead — it arrives in minutes.
-                  </p>
-                )}
-                <div className="flex items-baseline justify-between">
-                  <span className="text-lg font-semibold">Total</span>
+                {/* Kid WhatsApp Wish Box */}
+                <div className="rounded-2xl p-4 bg-gradient-to-br from-green-950/60 to-midnight border border-green-500/40 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-green-400">
+                      <MessageCircle className="h-4 w-4" /> Kids: Send Wish on WhatsApp
+                    </span>
+                    <span className="text-[10px] text-snow/60 font-semibold">Wish Wings 🪽</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Your name or nickname..."
+                    value={childName}
+                    onChange={(e) => setChildName(e.target.value)}
+                    className="w-full text-xs rounded-xl bg-midnight/90 border border-snow/20 px-3 py-2 text-snow placeholder:text-snow/40"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Why you wish for this (e.g. Practicing so hard!)..."
+                    value={childNote}
+                    onChange={(e) => setChildNote(e.target.value)}
+                    className="w-full text-xs rounded-xl bg-midnight/90 border border-snow/20 px-3 py-2 text-snow placeholder:text-snow/40"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSendWhatsAppWish}
+                    className="w-full py-2.5 px-4 rounded-xl bg-green-600 hover:bg-green-500 text-snow font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="h-4 w-4" /> Send Wish Card to Mom / Dad 📲
+                  </button>
+                </div>
+
+                <div className="flex items-baseline justify-between pt-2">
+                  <span className="text-sm font-semibold text-snow/75">Parents Checkout Total:</span>
                   <span className="font-display text-2xl font-semibold text-gold">{money(totalPrice, storeCode)}</span>
                 </div>
-                <p className="text-[11px] text-snow/50">You'll be charged in {storeCode} at checkout. Other currencies are shown as an estimate only.</p>
                 <Button onClick={handleCheckout} variant="candy" size="xl" className="w-full" disabled={isLoading || isSyncing || pastCutoff}>
-                  {isLoading || isSyncing ? <Loader2 className="h-4 w-4 animate-spin" /> : <><ExternalLink className="h-4 w-4" /> Secure checkout</>}
+                  {isLoading || isSyncing ? <Loader2 className="h-4 w-4 animate-spin" /> : <><ExternalLink className="h-4 w-4" /> Parent Secure Checkout</>}
                 </Button>
               </div>
             </>
