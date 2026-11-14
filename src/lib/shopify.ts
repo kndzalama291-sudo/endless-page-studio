@@ -4,7 +4,7 @@ export const SHOPIFY_API_VERSION =
   (import.meta.env.VITE_SHOPIFY_API_VERSION as string) || "2026-10";
 export const SHOPIFY_STORE_PERMANENT_DOMAIN =
   (import.meta.env.VITE_SHOPIFY_STORE_DOMAIN as string) ||
-  "endless-page-studio-0zt20-wcgxbv0x.myshopify.com";
+  "j7wxjk-ay.myshopify.com";
 export const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 // Storefront tokens are public by design (read-only storefront access).
 export const SHOPIFY_STOREFRONT_TOKEN =
